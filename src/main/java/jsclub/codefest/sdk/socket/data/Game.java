@@ -1,4 +1,4 @@
-package jsclub.codefest.sdk.model;
+package jsclub.codefest.sdk.socket.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

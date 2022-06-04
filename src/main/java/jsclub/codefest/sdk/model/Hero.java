@@ -1,8 +1,8 @@
 package jsclub.codefest.sdk.model;
-import com.google.gson.Gson;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import jsclub.codefest.sdk.constant.ServerSocketConfig;
+import jsclub.codefest.sdk.socket.data.Game;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,8 +13,8 @@ import org.json.JSONObject;
 
 public class Hero {
     private static final Logger LOGGER = LogManager.getLogger(Hero.class);
-    private String playerName = "";
-    private String gameID = "";
+    private static String playerName = "";
+    private static String gameID = "";
     private Socket socket;
     private Emitter.Listener onTickTackListener = objects -> {};
 
@@ -27,20 +27,12 @@ public class Hero {
         this.onTickTackListener = onTickTackListener;
     }
 
-    public String getPlayerName() {
+    public static String getPlayerName() {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public String getGameID() {
+    public static String getGameID() {
         return gameID;
-    }
-
-    public void setGameID(String gameID) {
-        this.gameID = gameID;
     }
 
     public Boolean connectToServer() {
@@ -64,7 +56,6 @@ public class Hero {
                 LOGGER.error(e);
             }
         });
-
         socket.on(ServerSocketConfig.TICKTACK_PLAYER, onTickTackListener);
         socket.on(Socket.EVENT_CONNECT_ERROR, objects -> LOGGER.error("Connect Failed "+ objects[0].toString()));
         socket.on(Socket.EVENT_DISCONNECT, objects -> LOGGER.info("{} Disconnected!", this.playerName));
