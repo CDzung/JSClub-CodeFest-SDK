@@ -1,5 +1,7 @@
 package jsclub.codefest.sdk.model;
+import com.google.gson.Gson;
 import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 import jsclub.codefest.sdk.constant.ServerSocketConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,10 +16,15 @@ public class Hero {
     private String playerName = "";
     private String gameID = "";
     private Socket socket;
+    private Emitter.Listener onTickTackListener = objects -> {};
 
     public Hero(String playerName, String gameID) {
         this.playerName = playerName;
         this.gameID = gameID;
+    }
+
+    public void setOnTickTackListener(Emitter.Listener onTickTackListener) {
+        this.onTickTackListener = onTickTackListener;
     }
 
     public String getPlayerName() {
@@ -52,11 +59,16 @@ public class Hero {
             String gameParams = new Game(gameID, playerName).toString();
             try {
                 socket.emit(ServerSocketConfig.JOIN_GAME, new JSONObject(gameParams));
+                LOGGER.info("{} connected into game {}!", this.playerName, this.gameID);
             } catch (JSONException e) {
                 LOGGER.error(e);
             }
         });
-        LOGGER.info("{} connected into game {}!", this.playerName, this.gameID);
+
+        socket.on(ServerSocketConfig.TICKTACK_PLAYER, onTickTackListener);
+        socket.on(Socket.EVENT_CONNECT_ERROR, objects -> LOGGER.error("Connect Failed "+ objects[0].toString()));
+        socket.on(Socket.EVENT_DISCONNECT, objects -> LOGGER.info("{} Disconnected!", this.playerName));
+
         socket.connect();
         return true;
     }
