@@ -20,5 +20,7 @@
     <orderEntry type="library" name="Maven: io.socket:socket.io-client:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.socket:engine.io-client:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20090211" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.11.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.11.2" level="project" />
   </component>
 </module>
