@@ -2,6 +2,7 @@ package jsclub.codefest.sdk.model;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import jsclub.codefest.sdk.constant.ServerSocketConfig;
+import jsclub.codefest.sdk.socket.data.Dir;
 import jsclub.codefest.sdk.socket.data.Game;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,5 +63,17 @@ public class Hero {
 
         socket.connect();
         return true;
+    }
+
+    public void move(String step) {
+        if (socket != null && step.length() > 0) {
+            Dir dir = new Dir(step);
+            LOGGER.debug("Player = {} - Dir = {}", this.playerName, dir);
+            try {
+                socket.emit(ServerSocketConfig.DRIVE_PLAYER, new JSONObject(dir.toString()));
+            } catch (JSONException e) {
+                LOGGER.error(e);
+            }
+        }
     }
 }

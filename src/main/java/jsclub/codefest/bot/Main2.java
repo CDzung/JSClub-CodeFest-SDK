@@ -7,7 +7,7 @@ import jsclub.codefest.sdk.socket.data.GameInfo;
 
 public class Main2 {
     public static void main(String[] args) {
-        String GAME_ID = "91af7c5e-1cae-4f40-b98c-10f9207c7f92";
+        String GAME_ID = "13f6df15-4e31-4634-91f8-b7e098b72d63";
 
         Hero player2 = new Hero("player2-xxx", GAME_ID);
 //        Emitter.Listener onTickTackListener = objects -> {
