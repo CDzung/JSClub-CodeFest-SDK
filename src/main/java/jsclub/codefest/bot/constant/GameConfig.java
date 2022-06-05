@@ -1,5 +1,5 @@
 package jsclub.codefest.bot.constant;
 
 public class GameConfig {
-    public static final String GAME_ID = "532530e2-e9be-4a8e-aa22-c7d77c2d6821";
+    public static final String GAME_ID = "b7b659ff-f360-480f-9fa6-d7df876c64d4";
 }
