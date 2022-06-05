@@ -7,7 +7,7 @@ import okhttp3.*;
 import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
-public class SocketUtils {
+public class SocketUtil {
     private static final int TIMEOUT_IN_MINUTES = 1;
 
     public static Socket init(String url) {

@@ -7,7 +7,7 @@ import jsclub.codefest.sdk.socket.data.Game;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import jsclub.codefest.sdk.util.SocketUtils;
+import jsclub.codefest.sdk.util.SocketUtil;
 import jsclub.codefest.sdk.constant.ServerConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +41,7 @@ public class Hero {
             socket.disconnect();
             socket = null;
         }
-        socket = SocketUtils.init(ServerConfig.SERVER_URL);
+        socket = SocketUtil.init(ServerConfig.SERVER_URL);
 
         if (socket == null) {
             LOGGER.error("Socket null - can't connect");
