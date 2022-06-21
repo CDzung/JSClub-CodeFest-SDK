@@ -38,7 +38,7 @@ public class Bomberman {
 
     public Player mEnemyPlayer;
 
-    public void initPlayerInfo(Player myPlayer, yonko.codefest.service.socket.data.MapInfo mapInfo) {
+    public void initPlayerInfo(Player myPlayer, MapInfo mapInfo) {
         metadata = myPlayer;
         setPosition(Node.createFromPosition(myPlayer.currentPosition));
         setPlayerStatus(myPlayer.power, myPlayer.speed, myPlayer.delay, myPlayer.pill);
@@ -276,7 +276,7 @@ public class Bomberman {
         return listEffectBomb;
     }
 
-    public void filterSpoils(yonko.codefest.service.socket.data.MapInfo info) {
+    public void filterSpoils(MapInfo info) {
         listShouldEatSpoils.clear();
 //        listNoEatSpoils.clear();
         for (Spoil spoil : info.spoils) {

@@ -1,9 +1,7 @@
-package yonko.codefest.service.socket.data;
+package jsclub.codefest.sdk.socket.data;
 
 import com.google.gson.Gson;
 import jsclub.codefest.sdk.model.Hero;
-import jsclub.codefest.sdk.socket.data.*;
-
 import java.util.ArrayList;
 import java.util.List;
 

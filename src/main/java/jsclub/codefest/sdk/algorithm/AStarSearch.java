@@ -1,7 +1,6 @@
 package jsclub.codefest.sdk.algorithm;
 
 import jsclub.codefest.sdk.socket.data.Node;
-
 import java.util.*;
 
 public class AStarSearch extends BaseAlgorithm{

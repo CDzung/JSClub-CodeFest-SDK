@@ -1,7 +1,6 @@
 package jsclub.codefest.sdk.socket.data;
 
 import com.google.gson.Gson;
-import yonko.codefest.service.socket.data.MapInfo;
 
 public class GameInfo {
     public static final String EXPLOSED_TAG = "bomb:explosed";
