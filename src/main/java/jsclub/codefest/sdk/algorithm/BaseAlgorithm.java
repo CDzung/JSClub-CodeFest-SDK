@@ -12,8 +12,6 @@ import java.util.Map;
 import java.util.Stack;
 
 public class BaseAlgorithm {
-    int mMapWidth, mMapHeight;
-
     /**
      * Calculate Manhattan distance
      * @param src source position
