@@ -32,8 +32,8 @@ public class KhaiAlgorithm extends MainAlgorithm {
     }
 
     @Override
-    public Map<Node, Stack<Node>> getPathToAllFood(Bomberman Player) {
-        GameInfo gameInfo = new GameInfo();
+    public Map<Node, Stack<Node>> getPathToAllFood(Bomberman Player,GameInfo gameInfo) {
+        
         int[][] matrix = gameInfo.map_info.getMap();
         List<Spoil> listFood = gameInfo.map_info.spoils;
         Map<Node, Stack<Node>> path = new HashMap<>();
@@ -60,8 +60,8 @@ public class KhaiAlgorithm extends MainAlgorithm {
     }
 
     @Override
-    public Map<Node, Stack<Node>> getPathToBox(Bomberman Player) {
-        GameInfo gameInfo = new GameInfo();
+    public Map<Node, Stack<Node>> getPathToBox(Bomberman Player,GameInfo gameInfo) {
+        
         int[][] matrix = gameInfo.map_info.getMap();
         List<Node> boxs = gameInfo.map_info.boxs;
         BaseAlgorithm algo = new BaseAlgorithm();
