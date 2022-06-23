@@ -6,6 +6,7 @@ package jsclub.codefest.sdk.algorithm;
 
 import java.util.Map;
 import java.util.Stack;
+import jsclub.codefest.sdk.model.Bomberman;
 import jsclub.codefest.sdk.socket.data.Node;
 
 /**
@@ -17,9 +18,9 @@ public abstract class MainAlgorithm extends BaseAlgorithm{
     
     public abstract String getEscapePath();
     
-    public abstract Map<Node, Stack<Node>> getPathToAllFood();
+    public abstract Map<Node, Stack<Node>> getPathToAllFood(Bomberman player);
     
-    public abstract String getPathToBox();
+    public abstract Map<Node, Stack<Node>> getPathToBox(Bomberman Player);
     
     public abstract boolean isNeedToKillEnemy();
     
