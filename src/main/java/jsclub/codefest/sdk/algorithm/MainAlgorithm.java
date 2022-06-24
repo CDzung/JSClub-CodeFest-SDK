@@ -6,7 +6,10 @@ package jsclub.codefest.sdk.algorithm;
 
 import java.util.Map;
 import java.util.Stack;
+import jsclub.codefest.sdk.model.Bomberman;
+import jsclub.codefest.sdk.socket.data.MapInfo;
 import jsclub.codefest.sdk.socket.data.Node;
+import jsclub.codefest.sdk.socket.data.Player;
 
 /**
  *
@@ -15,11 +18,11 @@ import jsclub.codefest.sdk.socket.data.Node;
 public abstract class MainAlgorithm extends BaseAlgorithm{
     public abstract boolean isEndanger();
     
-    public abstract String getEscapePath();
+    public abstract String getEscapePath(Bomberman ownBomPlayer, MapInfo mapInfo, int numStep, boolean isReverse);
     
-    public abstract Map<Node, Stack<Node>> getPathToAllFood();
+    public abstract Map<Node, Stack<Node>> getPathToAllFood(Bomberman ownBomPlayer, MapInfo mapInfo, boolean isNeedCheckEffectBomb,Player myPlayer);
     
-    public abstract String getPathToBox();
+    public abstract Map<Node, Stack<Node>> getPathToAllBox(Bomberman Player,MapInfo mapInfo);
     
     public abstract boolean isNeedToKillEnemy();
     

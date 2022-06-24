@@ -36,6 +36,7 @@ public class MapInfo {
     public List<Viruses> getVirus() {
         return viruses;
     }
+    
 
     public List<Human> getDhuman() {
         List<Human> dhumanList = new ArrayList<>();
@@ -48,6 +49,7 @@ public class MapInfo {
         }
         return dhumanList;
     }
+    
 
     public List<Human> getNHuman() {
         List<Human> nhumanList = new ArrayList<>();
