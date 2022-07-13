@@ -15,6 +15,7 @@ import jsclub.codefest.sdk.socket.data.MapInfo;
 import jsclub.codefest.sdk.socket.data.Player;
 
 public class Main2 {
+
     private static final String id = "player2-xxx";
 
     public static String getRandomPath() {
@@ -38,18 +39,19 @@ public class Main2 {
             String path = "";
             if (ownBomPlayer.isEndanger()) {
                 System.out.println("#Find Safe Place");
-                path = dungAlgorithm.getEscapePath(ownBomPlayer, mapInfo, -1, false);
+                path = dungAlgorithm.getEscapePath(ownBomPlayer, mapInfo, 2);
                 if (path.equals("")) {
                     path = dungAlgorithm.getEatPath(ownBomPlayer, mapInfo, true, myPlayer);
                 }
             } else {
                 path = dungAlgorithm.getEatPath(ownBomPlayer, mapInfo, false, myPlayer);
-                if(path.equals("")) {
+                if (path.equals("")) {
                     path = dungAlgorithm.getPathToBox(ownBomPlayer, mapInfo);
                     System.out.println("box path " + path);
                 }
             }
             System.out.println("path " + path);
+
             player2.move(path);
         };
         player2.setOnTickTackListener(onTickTackListener);

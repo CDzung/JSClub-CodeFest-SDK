@@ -93,7 +93,7 @@ public class MapInfo {
         }
         return map;
     }
-
+    
     @Override
     public String toString() {
         return new Gson().toJson(this);

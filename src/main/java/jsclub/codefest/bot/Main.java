@@ -40,19 +40,21 @@ public class Main {
             String path = "";
             if (ownBomPlayer.isEndanger()) {
                 System.out.println("#Find Safe Place");
-                path = dungAlgorithm.getEscapePath(ownBomPlayer, mapInfo, -1, false);
-                
-                if (path.equals("")) {
-                    path = dungAlgorithm.getEatPath(ownBomPlayer, mapInfo, false, myPlayer);
+                path = dungAlgorithm.getEscapePath(ownBomPlayer, mapInfo, -1);
+                if (path == null || path.equals("")) {
+                    path = dungAlgorithm.getEatPath(ownBomPlayer, mapInfo, true, myPlayer);
                 }
             } else {
                 path = dungAlgorithm.getEatPath(ownBomPlayer, mapInfo, false, myPlayer);
-                if(path.equals("")) {
+                if (path == null || path.equals("")) {
                     path = dungAlgorithm.getPathToBox(ownBomPlayer, mapInfo);
                     System.out.println("box path " + path);
                 }
+                if (path == null || path.equals("")) {
+                    path = dungAlgorithm.getEscapePath(ownBomPlayer, mapInfo, -1);
+                }
             }
-            System.out.println("path " + path);
+
             player1.move(path);
         };
         player1.setOnTickTackListener(onTickTackListener);

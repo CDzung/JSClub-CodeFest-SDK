@@ -15,8 +15,8 @@ public class AStarSearch extends BaseAlgorithm {
     }
 
     Stack<Node> aStarSearch(int[][] matrix, Node start, Node target) {
-        int mMapWidth = matrix.length;
-        int mMapHeight = matrix[0].length;
+        int mMapWidth = matrix[0].length;
+        int mMapHeight = matrix.length;
 
         ArrayList<Node> openList = new ArrayList<>();
         ArrayList<Node> closeList = new ArrayList<>();
@@ -122,8 +122,8 @@ public class AStarSearch extends BaseAlgorithm {
     }
 
     public Stack<Node> aStarSearch(int[][] matrix, Bomberman player, Node target) {
-        int mMapWidth = matrix.length;
-        int mMapHeight = matrix[0].length;
+        int mMapWidth = matrix[0].length;
+        int mMapHeight = matrix.length;
         Node playerNode = player.getPosition();
         ArrayList<Node> openList = new ArrayList<>();
         ArrayList<Node> closeList = new ArrayList<>();
@@ -222,68 +222,18 @@ public class AStarSearch extends BaseAlgorithm {
     }
 
     public Map<Node, Stack<Node>> getPathsToAllFoods(int[][] matrix, Bomberman player, List<Node> targets, boolean isCollectSpoils) {
-        int mMapWidth = matrix.length;
-        int mMapHeight = matrix[0].length;
+        int mMapWidth = matrix[0].length;
+        int mMapHeight = matrix.length;
         Bomberman clonePlayer = Bomberman.clone(player);
         Map<Node, Stack<Node>> allPaths = new HashMap<>();
         Queue<Node> open = new LinkedList<>();
         Set<String> visited = new HashSet<>();// Record the visited Node
         List<Node> target = new ArrayList<>(targets);
         open.add(clonePlayer.getPosition());
-        while (!open.isEmpty()) {
-            Node now = open.remove();
-            if (target.isEmpty()) {
-                return allPaths;
-            }
-            for (Node food : target) {
-                if (food.equals(now)) {
-                    Stack<Node> paths = new Stack<>();
-                    Node node = now;
-                    while (node != null //                            && !node.equals(player.getPosition())
-                            ) {
-                        paths.push(node);
-                        node = node.getFather();
-                    }
-                    allPaths.put(food, paths);
-                    target.remove(food);
-                    break;
-                }
-            }
-            Node left = Node.createFromPosition(now.leftPosition(1));
-            Node right = Node.createFromPosition(now.rightPosition(1));
-            Node up = Node.createFromPosition(now.upPosition(1));
-            Node down = Node.createFromPosition(now.downPosition(1));
-            if (!player.getRestrictedNodes().contains(up.toString()) && !visited.contains(up.toString()) && up.getX() <= mMapWidth
-                    && up.getX() >= 1 && up.getY() <= mMapHeight && up.getY() >= 1 && (!isCollectSpoils || !player.getBoxs().contains(up))) {
-                up.setFather(now);
-                open.add(up);
-                visited.add(up.toString());
-            }
-            if (!player.getRestrictedNodes().contains(right.toString())
-                    && !visited.contains(right.toString())
-                    && right.getX() <= mMapWidth
-                    && right.getX() >= 1
-                    && right.getY() <= mMapHeight
-                    && right.getY() >= 1
-                    && (!isCollectSpoils
-                    || !player.getBoxs().contains(right))) {
-                right.setFather(now);
-                open.add(right);
-                visited.add(right.toString());
-            }
-            if (!player.getRestrictedNodes().contains(down.toString()) && !visited.contains(down.toString()) && down.getX() <= mMapWidth
-                    && down.getX() >= 1 && down.getY() <= mMapHeight && down.getY() >= 1
-                    && (!isCollectSpoils || !player.getBoxs().contains(down))) {
-                down.setFather(now);
-                open.add(down);
-                visited.add(down.toString());
-            }
-            if (!player.getRestrictedNodes().contains(left.toString()) && !visited.contains(left.toString()) && left.getX() <= mMapWidth
-                    && left.getX() >= 1 && left.getY() <= mMapHeight && left.getY() >= 1
-                    && (!isCollectSpoils || !player.getBoxs().contains(left))) {
-                left.setFather(now);
-                open.add(left);
-                visited.add(left.toString());
+        for(Node targetNode: targets) {
+            Stack<Node> path = aStarSearch(matrix, player, targetNode);
+            if(path!=null){
+                allPaths.put(targetNode, path);
             }
         }
         return allPaths;

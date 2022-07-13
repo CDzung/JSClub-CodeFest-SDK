@@ -18,7 +18,7 @@ import jsclub.codefest.sdk.socket.data.Player;
 public abstract class MainAlgorithm extends BaseAlgorithm{
     public abstract boolean isEndanger();
     
-    public abstract String getEscapePath(Bomberman ownBomPlayer, MapInfo mapInfo, int numStep, boolean isReverse);
+    public abstract String getEscapePath(Bomberman ownBomPlayer, MapInfo mapInfo, int numStep);
     
     public abstract Map<Node, Stack<Node>> getPathToAllFood(Bomberman ownBomPlayer, MapInfo mapInfo, boolean isNeedCheckEffectBomb,Player myPlayer);
     

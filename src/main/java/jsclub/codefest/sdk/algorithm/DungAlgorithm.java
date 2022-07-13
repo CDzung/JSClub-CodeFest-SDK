@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
  * @author Mido
  */
 public class DungAlgorithm extends MainAlgorithm {
+    
 
     @Override
     public boolean isEndanger() {
@@ -34,7 +35,7 @@ public class DungAlgorithm extends MainAlgorithm {
     }
 
     @Override
-    public String getEscapePath(Bomberman ownBomPlayer, MapInfo mapInfo, int numStep, boolean isReverse) {
+    public String getEscapePath(Bomberman ownBomPlayer, MapInfo mapInfo, int numStep) {
         Bomberman cloneBommer = Bomberman.clone(ownBomPlayer);
         int[][] matrix = mapInfo.getMap();
         List<Node> safeNodes = mapInfo.blank;
@@ -84,9 +85,9 @@ public class DungAlgorithm extends MainAlgorithm {
         restrictNode.addAll(cloneBommer.getBoxs());
         restrictNode.addAll(cloneBommer.getSelfisolatedZone());
         cloneBommer.setNormalHumanList(mapInfo.getNHuman());
-        if (cloneBommer.metadata.score - cloneBommer.mEnemyPlayer.score > 20 || mapInfo.boxs.size() < 10) {
+//        if (cloneBommer.metadata.score - cloneBommer.mEnemyPlayer.score > 20 || mapInfo.boxs.size() < 10) {
             cloneBommer.listShouldEatSpoils.addAll(cloneBommer.normalHumanList);
-        }
+//        }
         if (myPlayer.pill > 2) {
             cloneBommer.setVirusLists(mapInfo.getVirus(),false);
             cloneBommer.setDangerHumanList(mapInfo.getDhuman(),false);
@@ -136,24 +137,25 @@ public class DungAlgorithm extends MainAlgorithm {
         restrictNode.addAll(cloneBommer.dangerBombs);
         cloneBommer.setRestrictedNodes(restrictNode);
         Map<Node, Stack<Node>> pathToAllBox = sortByComparator(getPathToAllBox(cloneBommer, mapInfo), false);
-        System.out.println("path to all box " +pathToAllBox.size());
+//        System.out.println("path to all box " +pathToAllBox.size());
         AStarSearch algorithm = new AStarSearch();
-        System.out.println(pathToAllBox.size());
+//        System.out.println(pathToAllBox.size());
         for (Map.Entry<Node, Stack<Node>> path : pathToAllBox.entrySet()) {
             long searchTime = System.currentTimeMillis();
             String steps = algorithm.aStarSearch(mapInfo.getMap(), cloneBommer, path.getKey(), -1);
             
             if (steps!=null && !steps.equals("")) {
-                if(steps.length()==1) {
-                    restrictNode.add(cloneBommer.getPosition());
-                    cloneBommer.setRestrictedNodes(restrictNode);
-                    String pathEscape = getEscapePath(cloneBommer, mapInfo, -1, false);
+                if(steps.length() <= cloneBommer.getBombPower()) {
+                    List<Node> restrictNodes = restrictNode;
+                    List<Node> bombEfNodes = cloneBommer.getEffectBombExplosed(cloneBommer.getPosition(), cloneBommer.getBombPower());
+                    restrictNodes.addAll(bombEfNodes);
+                    cloneBommer.setRestrictedNodes(restrictNodes);
+                    
+                    String pathEscape = getEscapePath(cloneBommer, mapInfo, -1);
                     if(pathEscape!=null && !pathEscape.equals("")) {
-                        restrictNode.remove(restrictNode.get(restrictNode.size()-1));
                         cloneBommer.setRestrictedNodes(restrictNode);
                         return "b"+pathEscape;
                     }
-                    restrictNode.remove(restrictNode.get(restrictNode.size()-1));
                     cloneBommer.setRestrictedNodes(restrictNode);
                 }
                 return steps;
