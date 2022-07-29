@@ -18,13 +18,6 @@ public class Main2 {
 
     private static final String id = "player2-xxx";
 
-    public static String getRandomPath() {
-        Random rand = new Random();
-        int random_integer = rand.nextInt(5);
-
-        return "1234b".charAt(random_integer) + "";
-    }
-
     public static void main(String[] aDrgs) {
         Hero player2 = new Hero("player2-xxx", GameConfig.GAME_ID);
         Emitter.Listener onTickTackListener = objects -> {
@@ -38,19 +31,20 @@ public class Main2 {
             AStarSearch aStarSearch = new AStarSearch();
             String path = "";
             if (ownBomPlayer.isEndanger()) {
-                System.out.println("#Find Safe Place");
-                path = dungAlgorithm.getEscapePath(ownBomPlayer, mapInfo, 2);
+                path = dungAlgorithm.getEscapePath(ownBomPlayer, mapInfo, -1);
                 if (path.equals("")) {
                     path = dungAlgorithm.getEatPath(ownBomPlayer, mapInfo, true, myPlayer);
                 }
             } else {
                 path = dungAlgorithm.getEatPath(ownBomPlayer, mapInfo, false, myPlayer);
-                if (path.equals("")) {
+                if (path == null || path.equals("")) {
                     path = dungAlgorithm.getPathToBox(ownBomPlayer, mapInfo);
                     System.out.println("box path " + path);
                 }
+                if (path == null || path.equals("")) {
+                    path = dungAlgorithm.getEscapePath(ownBomPlayer, mapInfo, -1);
+                }
             }
-            System.out.println("path " + path);
 
             player2.move(path);
         };
